@@ -16,6 +16,10 @@ pygame.font.init()
 font = pygame.font.SysFont('comicsans', 75)
 level_font = pygame.font.SysFont('comicsans', 25)
 birthday_font = pygame.font.SysFont('comicsans', 60)
+pygame.mixer.init(44100, -16,2,2048)
+birthday_song = 'happy_birthday.wav'
+background_song = 'background.wav'
+pygame.mixer.music.load(background_song)
 
 class Game:
 
@@ -33,6 +37,8 @@ class Game:
         # Set the game window color to white
         self.game_screen.fill(PURPLE_COLOR)
         pygame.display.set_caption(title)
+        pygame.mixer.music.play(0)
+
 
         # Load and set the background image for the scene
         background_image = pygame.image.load(image_path)
@@ -69,7 +75,6 @@ class Game:
             # A loop to get all of the events occuring at any given time
             # Events are most often mouse movement, mouse and button clicks, or exit events
             for event in pygame.event.get():
-                keys = pygame.key.get_pressed()
                 # If we have a quite type event (exit out) then exit out of the game loop
                 if event.type == pygame.QUIT:
                     exit_game = True
@@ -83,7 +88,13 @@ class Game:
                         direction = -1
                     elif event.key == pygame.K_7:
                        show_happy_birthday = not show_happy_birthday
-                       keys[pygame.K_RIGHT] and keys[pygame.K_LEFT]
+                       if show_happy_birthday:
+                           pygame.mixer.music.load(birthday_song)
+                           pygame.mixer.music.play(0)
+                       else:
+                            pygame.mixer.music.stop()
+                            pygame.mixer.music.load(background_song)
+                            pygame.mixer.music.play(0)
                 # Detect when key is released
                 elif event.type == pygame.KEYUP:
                     # Stop movement when key no longer pressed
