@@ -83,9 +83,21 @@ class Game:
                     # Move up if up key pressed
                     if event.key == pygame.K_UP:
                         direction = 1
+                        if show_happy_birthday:
+                             pygame.mixer.music.stop()
+                             pygame.mixer.music.load(background_song)
+                             pygame.mixer.music.play(-1)
+
+                        show_happy_birthday = False
+                       
                     # Move down if down key pressed
                     elif event.key == pygame.K_DOWN:
                         direction = -1
+                        if show_happy_birthday:
+                             pygame.mixer.music.stop()
+                             pygame.mixer.music.load(background_song)
+                             pygame.mixer.music.play(-1)
+                        show_happy_birthday = False
                     elif event.key == pygame.K_7:
                        show_happy_birthday = not show_happy_birthday
                        if show_happy_birthday:
