@@ -1,6 +1,7 @@
 import pygame
 import math
 import random
+from time import sleep
 
 SCREEN_TITLE = 'Crossy'
 SCREEN_WIDTH = 800
@@ -19,8 +20,12 @@ birthday_font = pygame.font.SysFont('comicsans', 60)
 pygame.mixer.init(44100, -16,2,2048)
 birthday_song = 'happy_birthday.wav'
 background_song = 'background.wav'
+gameover_sound = 'game_over.wav'
+level_complete_sound = 'success.wav'
 pygame.mixer.music.load(background_song)
 SONG_END = pygame.USEREVENT + 1
+game_over_effect = pygame.mixer.Sound(gameover_sound)
+level_complete_effect = pygame.mixer.Sound(level_complete_sound)
 
 class Game:
 
@@ -183,10 +188,18 @@ class Game:
         if exit_game:
             return
         if did_win:
+            pygame.mixer.music.stop()
+            level_complete_effect.play()
+            sleep(1.75)
+            pygame.mixer.music.play(-1)
             self.run_game_loop(level_speed + 0.5, level + 1)
         else:
             if level > HIGH_SCORE:
                  HIGH_SCORE = level
+            pygame.mixer.music.stop()
+            game_over_effect.play()
+            sleep(1.75) # TODO fix this
+            pygame.mixer.music.play(-1)
             self.run_game_loop(1, 1)
 
     def enemy_collision(self):
