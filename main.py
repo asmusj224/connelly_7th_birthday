@@ -90,11 +90,11 @@ class Game:
                        show_happy_birthday = not show_happy_birthday
                        if show_happy_birthday:
                            pygame.mixer.music.load(birthday_song)
-                           pygame.mixer.music.play(0)
+                           pygame.mixer.music.play(-1)
                        else:
                             pygame.mixer.music.stop()
                             pygame.mixer.music.load(background_song)
-                            pygame.mixer.music.play(0)
+                            pygame.mixer.music.play(-1)
                 # Detect when key is released
                 elif event.type == pygame.KEYUP:
                     # Stop movement when key no longer pressed
