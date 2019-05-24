@@ -1,5 +1,6 @@
 import pygame
 import math
+import random
 
 SCREEN_TITLE = 'Crossy'
 SCREEN_WIDTH = 800
@@ -45,16 +46,16 @@ class Game:
         show_happy_birthday = False
 
         player_character = PlayerCharacter('player.png', 375, 700, 50, 50)
-        enemy_0 = NonPlayerCharacter('enemy.png', 20, 400, 50, 50)
+        enemy_0 = NonPlayerCharacter('enemy.png', random.randint(20, self.width - 40), 400, 50, 50)
         # Speed increased as we advance in difficulty
         enemy_0.SPEED *= level_speed
 
         # Create another enemy
-        enemy_1 = NonPlayerCharacter('enemy.png', self.width - 40, 250, 50, 50)
+        enemy_1 = NonPlayerCharacter('enemy.png', random.randint(20, self.width - 40), 250, 50, 50)
         enemy_1.SPEED *= level_speed
 
         # Create another enemy
-        enemy_2 = NonPlayerCharacter('enemy.png', 20, 100, 50, 50)
+        enemy_2 = NonPlayerCharacter('enemy.png', random.randint(20, self.width - 40), 100, 50, 50)
         enemy_2.SPEED *= level_speed
 
         treasure = GameObject('treasure.png', 375, 50, 50, 50)
@@ -146,8 +147,6 @@ class Game:
             # Tick the clock to update everything within the game
             clock.tick(self.TICK_RATE)
 
-        # Restart game loop if we won
-        # Break out of game loop and quit if we lose
         if exit_game:
             return
         if did_win:
