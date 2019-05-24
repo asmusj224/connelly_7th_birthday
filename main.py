@@ -20,6 +20,7 @@ pygame.mixer.init(44100, -16,2,2048)
 birthday_song = 'happy_birthday.wav'
 background_song = 'background.wav'
 pygame.mixer.music.load(background_song)
+SONG_END = pygame.USEREVENT + 1
 
 class Game:
 
@@ -75,6 +76,10 @@ class Game:
             # A loop to get all of the events occuring at any given time
             # Events are most often mouse movement, mouse and button clicks, or exit events
             for event in pygame.event.get():
+                if event.type == SONG_END:
+                    show_happy_birthday = False
+                    pygame.mixer.music.load(background_song)
+                    pygame.mixer.music.play(-1)
                 # If we have a quite type event (exit out) then exit out of the game loop
                 if event.type == pygame.QUIT:
                     exit_game = True
@@ -101,8 +106,9 @@ class Game:
                     elif event.key == pygame.K_7:
                        show_happy_birthday = not show_happy_birthday
                        if show_happy_birthday:
+                           pygame.mixer.music.set_endevent(SONG_END)
                            pygame.mixer.music.load(birthday_song)
-                           pygame.mixer.music.play(-1)
+                           pygame.mixer.music.play(0)
                        else:
                             pygame.mixer.music.stop()
                             pygame.mixer.music.load(background_song)
