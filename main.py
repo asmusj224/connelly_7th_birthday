@@ -8,7 +8,7 @@ SCREEN_HEIGHT = 600
 
 HIGH_SCORE = 0
 
-PURPLE_COLOR = (139,0,139)
+PURPLE_COLOR = (128,0,128)
 BLACK_COLOR = (0, 0, 0)
 
 clock = pygame.time.Clock()
