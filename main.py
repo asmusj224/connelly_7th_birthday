@@ -69,6 +69,7 @@ class Game:
             # A loop to get all of the events occuring at any given time
             # Events are most often mouse movement, mouse and button clicks, or exit events
             for event in pygame.event.get():
+                keys = pygame.key.get_pressed()
                 # If we have a quite type event (exit out) then exit out of the game loop
                 if event.type == pygame.QUIT:
                     exit_game = True
@@ -80,8 +81,9 @@ class Game:
                     # Move down if down key pressed
                     elif event.key == pygame.K_DOWN:
                         direction = -1
-                    elif event.key == pygame.K_7:
+                    elif keys[pygame.K_7] and keys[pygame.K_RCTRL] or keys[pygame.K_7] and keys[pygame.K_LCTRL]:
                        show_happy_birthday = not show_happy_birthday
+                       keys[pygame.K_RIGHT] and keys[pygame.K_LEFT]
                 # Detect when key is released
                 elif event.type == pygame.KEYUP:
                     # Stop movement when key no longer pressed
@@ -116,16 +118,18 @@ class Game:
             if level_speed > 2:
                 enemy_1.move(self.width)
                 enemy_1.draw(self.game_screen)
+                if player_character.detect_collision(enemy_1):
+                    did_win = self.enemy_collision()
+                    break
             if level_speed > 4:
+                if player_character.detect_collision(enemy_2):
+                    did_win = self.enemy_collision()
+                    break
                 enemy_2.move(self.width)
                 enemy_2.draw(self.game_screen)
 
-            if player_character.detect_collision(enemy_0) or player_character.detect_collision(enemy_1) or player_character.detect_collision(enemy_2):
-                did_win = False
-                text = font.render('You lose! :(', True, BLACK_COLOR)
-                self.game_screen.blit(text, (275, 350))
-                pygame.display.update()
-                clock.tick(1)
+            if player_character.detect_collision(enemy_0):
+                did_win = self.enemy_collision()
                 break
             elif player_character.detect_collision(treasure):
                 did_win = True
@@ -155,6 +159,13 @@ class Game:
             if level > HIGH_SCORE:
                  HIGH_SCORE = level
             self.run_game_loop(1, 1)
+
+    def enemy_collision(self):
+         text = font.render('You lose! :(', True, BLACK_COLOR)
+         self.game_screen.blit(text, (275, 350))
+         pygame.display.update()
+         clock.tick(1)
+         return False
 
 # Generic game object class to be subclassed by other objects in the game
 class GameObject:
@@ -205,7 +216,6 @@ class PlayerCharacter(GameObject):
             return False
         elif self.x_pos + self.width < other_body.x_pos:
             return False
-        
         return True
 
 # Class to represent the enemies moving left to right and right to left
