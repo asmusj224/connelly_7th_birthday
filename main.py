@@ -81,7 +81,7 @@ class Game:
                     # Move down if down key pressed
                     elif event.key == pygame.K_DOWN:
                         direction = -1
-                    elif keys[pygame.K_7] and keys[pygame.K_RCTRL] or keys[pygame.K_7] and keys[pygame.K_LCTRL]:
+                    elif event.key == pygame.K_7:
                        show_happy_birthday = not show_happy_birthday
                        keys[pygame.K_RIGHT] and keys[pygame.K_LEFT]
                 # Detect when key is released
