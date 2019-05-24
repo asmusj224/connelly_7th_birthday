@@ -5,6 +5,8 @@ SCREEN_TITLE = 'Crossy'
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
+HIGH_SCORE = 0
+
 PURPLE_COLOR = (139,0,139)
 BLACK_COLOR = (0, 0, 0)
 
@@ -36,6 +38,7 @@ class Game:
         self.image = pygame.transform.scale(background_image, (width, height))
 
     def run_game_loop(self, level_speed, level):
+        global HIGH_SCORE
         did_win = False
         direction = 0
         exit_game = False
@@ -93,6 +96,9 @@ class Game:
             text = level_font.render(f'Level {math.ceil(level)}', True, BLACK_COLOR)
             self.game_screen.blit(text, (375, 525))
 
+            high_score_text = level_font.render(f'High Score {math.ceil(HIGH_SCORE)}', True, BLACK_COLOR)
+            self.game_screen.blit(high_score_text, (350, 500))
+
             # Draw the treasure
             treasure.draw(self.game_screen)
             
@@ -134,7 +140,6 @@ class Game:
                 self.game_screen.blit(text, (150, 310))
                 self.game_screen.blit(text3, (348, 410))
                 pygame.display.update()
-                clock.tick(1)
 
             # Update all game graphics
             pygame.display.update()
@@ -148,6 +153,8 @@ class Game:
         if did_win:
             self.run_game_loop(level_speed + 0.5, level + 1)
         else:
+            if level > HIGH_SCORE:
+                 HIGH_SCORE = level
             self.run_game_loop(1, 1)
 
 # Generic game object class to be subclassed by other objects in the game
