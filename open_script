@@ -1,5 +1,18 @@
 #!/bin/sh
 
+if which python3; then
+    echo "Python3 is installed"
+else 
+    if which brew; then 
+        echo "Homebrew installed"
+    else
+        echo "Installing homebrew"
+        mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
+    fi
+    echo 'Installing python3'
+    brew install python3
+fi
+
 cd "${0%/*}"
 
 python3 -m venv env
