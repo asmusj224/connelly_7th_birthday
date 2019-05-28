@@ -73,7 +73,7 @@ class Game:
         treasure = GameObject('treasure.png', 375, 50, 50, 50)
 
         # image_path, x, y, width, height
-        heart = GameObject('heart.png', 375, 355, 50, 50)
+       
 
         # Main game loop, used to update all gameplay such as movement, checks, and graphics
         while not exit_game:
@@ -173,9 +173,12 @@ class Game:
                 clock.tick(1)
                 break
             if show_happy_birthday:
+                cake = GameObject('cake.png', 350, 150, 100, 150)
+                heart = GameObject('heart.png', 375, 355, 50, 50)
                 text = birthday_font.render('Happy Birthday, Connelly!', True, PURPLE_COLOR)
                 text3 = birthday_font.render('D + J', True, PURPLE_COLOR)
                 heart.draw(self.game_screen)
+                cake.draw(self.game_screen)
                 self.game_screen.blit(text, (150, 310))
                 self.game_screen.blit(text3, (348, 410))
                 pygame.display.update()
