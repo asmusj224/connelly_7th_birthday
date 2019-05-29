@@ -9,7 +9,7 @@ SCREEN_HEIGHT = 600
 
 HIGH_SCORE = 0
 
-PURPLE_COLOR = (128,0,128)
+BLUE_COLOR = (1,137,166)
 BLACK_COLOR = (0, 0, 0)
 
 clock = pygame.time.Clock()
@@ -41,7 +41,7 @@ class Game:
         # Create the window of specified size in white to display the game
         self.game_screen = pygame.display.set_mode((width, height))
         # Set the game window color to white
-        self.game_screen.fill(PURPLE_COLOR)
+        self.game_screen.fill(BLUE_COLOR)
         pygame.display.set_caption(title)
         pygame.mixer.music.play(0)
 
@@ -126,7 +126,7 @@ class Game:
 
             # Redraw the screen to be a blank white window
 
-            self.game_screen.fill(PURPLE_COLOR)
+            self.game_screen.fill(BLUE_COLOR)
             # Draw the image onto the background
             self.game_screen.blit(self.image, (0, 0))
 
@@ -175,8 +175,8 @@ class Game:
             if show_happy_birthday:
                 cake = GameObject('cake.png', 350, 150, 100, 150)
                 heart = GameObject('heart.png', 375, 355, 50, 50)
-                text = birthday_font.render('Happy Birthday, Connelly!', True, PURPLE_COLOR)
-                text3 = birthday_font.render('D + J', True, PURPLE_COLOR)
+                text = birthday_font.render('Happy Birthday, Connelly!', True, BLUE_COLOR)
+                text3 = birthday_font.render('D + J', True, BLUE_COLOR)
                 heart.draw(self.game_screen)
                 cake.draw(self.game_screen)
                 self.game_screen.blit(text, (150, 310))
